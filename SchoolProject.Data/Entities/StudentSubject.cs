@@ -10,6 +10,8 @@ namespace SchoolProject.Data.Entities
         public int StudentId { get; set; }
         public int SubjectId { get; set; }
 
+        public decimal? Grade { get; set; }
+
         [ForeignKey("StudentId")]
         public virtual Student Student { get; set; }
         [ForeignKey("SubjectId")]
