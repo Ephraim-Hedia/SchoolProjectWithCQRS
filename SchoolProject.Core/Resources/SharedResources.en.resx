@@ -123,4 +123,40 @@
   <data name="NotFound" xml:space="preserve">
     <value>This is not Found</value>
   </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>Deleted Successfully</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Created Successfully</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>The Operation has done Successfully</value>
+  </data>
+  <data name="Updated" xml:space="preserve">
+    <value>Updated Successfully</value>
+  </data>
+  <data name="NotEmpty" xml:space="preserve">
+    <value>This field must be not Empty</value>
+  </data>
+  <data name="StudentName" xml:space="preserve">
+    <value>Student Name</value>
+  </data>
+  <data name="UnAuthorized" xml:space="preserve">
+    <value>UnAuthorized</value>
+  </data>
+  <data name="BadRequest" xml:space="preserve">
+    <value>Bad Request</value>
+  </data>
+  <data name="UnprocessableEntity" xml:space="preserve">
+    <value>Unprocessable Entity</value>
+  </data>
+  <data name="MaxLengthis100" xml:space="preserve">
+    <value>Max Length is 100 Char</value>
+  </data>
+  <data name="IsExist" xml:space="preserve">
+    <value>Already exists</value>
+  </data>
+  <data name="IsNotExist" xml:space="preserve">
+    <value>does not exist</value>
+  </data>
 </root>

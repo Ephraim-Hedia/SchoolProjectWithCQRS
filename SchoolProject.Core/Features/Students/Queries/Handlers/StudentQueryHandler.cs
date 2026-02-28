@@ -26,7 +26,7 @@ namespace SchoolProject.Core.Features.Students.Queries.Handlers
         #region Constructor
         public StudentQueryHandler(IStudentService studentService
             , IMapper mapper
-            , IStringLocalizer<SharedResources> stringLocalizer)
+            , IStringLocalizer<SharedResources> stringLocalizer) : base(stringLocalizer)
         {
             _studentService = studentService;
             _mapper = mapper;
@@ -39,15 +39,19 @@ namespace SchoolProject.Core.Features.Students.Queries.Handlers
         {
             var studentList = await _studentService.GetAllStudentsAsync();
             var studentListMapper = _mapper.Map<IEnumerable<Student>, IEnumerable<GetAllStudentResponse>>(studentList);
-            return Success(studentListMapper);
-
+            var result = Success(studentListMapper);
+            result.Meta = new
+            {
+                TotalCount = studentListMapper.Count(),
+            };
+            return result;
         }
 
         public async Task<Response<GetStudentByIdResponse>> Handle(GetStudentByIdQuery request, CancellationToken cancellationToken)
         {
             var student = await _studentService.GetStudentByIdAsync(request.StudentId);
             if (student == null)
-                return NotFound<GetStudentByIdResponse>(_localizer[SharedResourcesKeys.NotFound]);
+                return NotFound<GetStudentByIdResponse>();
 
             var studentMapper = _mapper.Map<GetStudentByIdResponse>(student);
             return Success(studentMapper);

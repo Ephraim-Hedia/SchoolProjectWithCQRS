@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.Extensions.Localization;
 using SchoolProject.Core.Bases;
 using SchoolProject.Core.Features.Students.Commands.Models;
+using SchoolProject.Core.Resources;
 using SchoolProject.Data.Entities;
 using SchoolProject.Service.Interfaces;
 
@@ -19,7 +21,10 @@ namespace SchoolProject.Core.Features.Students.Commands.Handlers
         #endregion
 
         #region Constructors
-        public AddStudentCommandHandler(IStudentService studentService, IMapper mapper)
+        public AddStudentCommandHandler(
+            IStudentService studentService,
+            IMapper mapper,
+            IStringLocalizer<SharedResources> stringLocalizer) : base(stringLocalizer)
         {
             _mapper = mapper;
             _studentService = studentService;

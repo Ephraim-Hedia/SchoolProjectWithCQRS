@@ -1,10 +1,14 @@
-﻿namespace SchoolProject.Core.Bases
+﻿using Microsoft.Extensions.Localization;
+using SchoolProject.Core.Resources;
+
+namespace SchoolProject.Core.Bases
 {
     public class ResponseHandler
     {
-        public ResponseHandler()
+        private readonly IStringLocalizer<SharedResources> _localizer;
+        public ResponseHandler(IStringLocalizer<SharedResources> stringLocalizer)
         {
-
+            _localizer = stringLocalizer;
         }
         public Response<T> Updated<T>(T entity, object Meta = null)
         {
@@ -13,7 +17,7 @@
                 Data = entity,
                 StatusCode = System.Net.HttpStatusCode.OK,
                 Succeeded = true,
-                Message = "Updated successfully",
+                Message = _localizer[SharedResourcesKeys.Updated],
                 Meta = Meta
             };
         }
@@ -23,7 +27,7 @@
             {
                 StatusCode = System.Net.HttpStatusCode.OK,
                 Succeeded = true,
-                Message = message == null ? "Deleted successfully" : message,
+                Message = message == null ? _localizer[SharedResourcesKeys.Deleted] : message,
             };
         }
         public Response<T> Success<T>(T entity, object Meta = null)
@@ -33,7 +37,7 @@
                 Data = entity,
                 StatusCode = System.Net.HttpStatusCode.OK,
                 Succeeded = true,
-                Message = "Done successfully",
+                Message = _localizer[SharedResourcesKeys.Success],
                 Meta = Meta
             };
         }
@@ -70,7 +74,7 @@
             {
                 StatusCode = System.Net.HttpStatusCode.NotFound,
                 Succeeded = false,
-                Message = message == null ? "Not found" : message,
+                Message = message == null ? _localizer[SharedResourcesKeys.NotFound] : message,
             };
         }
         public Response<T> Updated<T>()
@@ -79,7 +83,7 @@
             {
                 StatusCode = System.Net.HttpStatusCode.OK,
                 Succeeded = true,
-                Message = "Updated successfully",
+                Message = _localizer[SharedResourcesKeys.Updated],
             };
         }
         public Response<T> Created<T>(T entity, object Meta = null)
@@ -89,7 +93,7 @@
                 Data = entity,
                 StatusCode = System.Net.HttpStatusCode.Created,
                 Succeeded = true,
-                Message = "Created successfully",
+                Message = _localizer[SharedResourcesKeys.Created],
                 Meta = Meta
             };
         }
