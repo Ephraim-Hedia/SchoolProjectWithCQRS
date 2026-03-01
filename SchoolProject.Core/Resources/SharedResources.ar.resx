@@ -159,4 +159,7 @@
   <data name="IsNotExist" xml:space="preserve">
     <value>غير موجود ف الداتابيز</value>
   </data>
+  <data name="DepartmentId" xml:space="preserve">
+    <value>رقم القسم</value>
+  </data>
 </root>

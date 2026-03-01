@@ -54,9 +54,9 @@ namespace SchoolProject.Service.Implementation
             return department;
         }
 
-        public Task<bool> IsDepartmentIdExistAsync(int id)
+        public async Task<bool> IsDepartmentIdExistAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _departmentRepository.GetTableNoTracking().AnyAsync(d => d.DepeartmentId == id);
         }
 
         public Task<bool> IsNameExistAsync(string name)

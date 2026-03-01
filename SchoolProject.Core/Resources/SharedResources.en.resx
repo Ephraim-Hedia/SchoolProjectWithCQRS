@@ -159,4 +159,7 @@
   <data name="IsNotExist" xml:space="preserve">
     <value>does not exist</value>
   </data>
+  <data name="DepartmentId" xml:space="preserve">
+    <value>Department Id</value>
+  </data>
 </root>

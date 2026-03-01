@@ -8,7 +8,6 @@ using SchoolProject.Core.Resources;
 using SchoolProject.Core.Wrappers;
 using SchoolProject.Data.Entities;
 using SchoolProject.Service.Interfaces;
-using System.Linq.Expressions;
 
 namespace SchoolProject.Core.Features.Students.Queries.Handlers
 {
@@ -59,11 +58,13 @@ namespace SchoolProject.Core.Features.Students.Queries.Handlers
 
         public async Task<PaginatedResult<GetStudentPaginatedListResponse>> Handle(GetStudentPaginatedListQuery request, CancellationToken cancellationToken)
         {
-            Expression<Func<Student, GetStudentPaginatedListResponse>> expression = s
-                => new GetStudentPaginatedListResponse(s.StudentId, s.GetLocalizedName(s.StudentNameAr, s.StudentNameEn), s.StudentAddress, s.Department.GetLocalizedName(s.Department.DepartmentNameAr, s.Department.DepartmentNameEn));
+            //Expression<Func<Student, GetStudentPaginatedListResponse>> expression = s
+            //    => new GetStudentPaginatedListResponse(s.StudentId, s.GetLocalizedName(s.StudentNameAr, s.StudentNameEn), s.StudentAddress, s.Department.GetLocalizedName(s.Department.DepartmentNameAr, s.Department.DepartmentNameEn));
             //var querable = _studentService.GetStudentsQuerable();
             var FilterQuery = _studentService.FilterStudentsPaginatedQuerable(request.OrderBy, request.Search);
-            return await FilterQuery.Select(expression).ToPaginatedListAsync(request.PageNumber, request.PageSize);
+            return await FilterQuery
+                .Select(x => new GetStudentPaginatedListResponse(x.StudentId, x.GetLocalizedName(x.StudentNameAr, x.StudentNameEn), x.StudentAddress, x.Department.GetLocalizedName(x.Department.DepartmentNameAr, x.Department.DepartmentNameEn)))
+                .ToPaginatedListAsync(request.PageNumber, request.PageSize);
         }
         #endregion
     }

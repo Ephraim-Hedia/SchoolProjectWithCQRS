@@ -11,13 +11,16 @@ namespace SchoolProject.Core.Features.Students.Commands.Validators
         #region Fields
         private readonly IStudentService _studentService;
         private readonly IStringLocalizer<SharedResources> _localizer;
+        private readonly IDepartmentService _departmentService;
         #endregion
 
         #region Constructors
         public AddStudentValidator(IStudentService studentService,
-            IStringLocalizer<SharedResources> stringLocalizer)
+            IStringLocalizer<SharedResources> stringLocalizer,
+            IDepartmentService departmentService)
         {
             _studentService = studentService;
+            _departmentService = departmentService;
             _localizer = stringLocalizer;
             ValidateAddStudentCommand();
             ApplyCustomValidationsRules();
@@ -72,6 +75,12 @@ namespace SchoolProject.Core.Features.Students.Commands.Validators
                 .WithMessage(_localizer[SharedResourcesKeys.IsExist]);
 
             // to be added : check if the department id exists in the database
+            RuleFor(x => x.DepartmentId)
+                .MustAsync(async (id, cancellation) =>
+                {
+                    return await _departmentService.IsDepartmentIdExistAsync(id);
+                })
+                .WithMessage(_localizer[SharedResourcesKeys.NotFound]);
         }
         #endregion
     }
