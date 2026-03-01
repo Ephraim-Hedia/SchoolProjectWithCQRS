@@ -27,11 +27,15 @@ namespace SchoolProject.Core.Features.Students.Commands.Validators
         #region Actions
         public void ValidateAddStudentCommand()
         {
-            RuleFor(x => x.StudentName)
+            RuleFor(x => x.StudentNameAr)
                 .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.NotEmpty])
                 .NotNull().WithMessage(_localizer[SharedResourcesKeys.Required])
                 .MaximumLength(50).WithMessage("StudentName Max Length is 50 Char.");
 
+            RuleFor(x => x.StudentNameEn)
+                .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.NotEmpty])
+                .NotNull().WithMessage(_localizer[SharedResourcesKeys.Required])
+                .MaximumLength(50).WithMessage("StudentName Max Length is 50 Char.");
 
             RuleFor(x => x.StudentAddress)
                 .NotEmpty().WithMessage(_localizer[SharedResourcesKeys.NotEmpty])
@@ -53,7 +57,14 @@ namespace SchoolProject.Core.Features.Students.Commands.Validators
         {
             // Add any custom validation logic here if needed
             // For example, you can check if the student name already exists in the database
-            RuleFor(x => x.StudentName)
+            RuleFor(x => x.StudentNameEn)
+                .MustAsync(async (name, cancellation) =>
+                {
+                    return !await _studentService.IsNameExistAsync(name);
+                })
+                .WithMessage(_localizer[SharedResourcesKeys.IsExist]);
+
+            RuleFor(x => x.StudentNameAr)
                 .MustAsync(async (name, cancellation) =>
                 {
                     return !await _studentService.IsNameExistAsync(name);

@@ -8,7 +8,9 @@ namespace SchoolProject.Core.Mapping.StudentMapping
     {
         public void AddStudentMapping()
         {
-            CreateMap<AddStudentCommand, Student>();
+            CreateMap<AddStudentCommand, Student>()
+                .ForMember(dest => dest.StudentNameAr, opt => opt.MapFrom(src => src.StudentNameAr))
+                .ForMember(dest => dest.StudentNameEn, opt => opt.MapFrom(src => src.StudentNameEn)).ReverseMap();
         }
     }
 }

@@ -82,6 +82,7 @@ app.UseRequestLocalization(options.Value);
 app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.UseHttpsRedirection();
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 
