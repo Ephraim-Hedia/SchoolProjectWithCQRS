@@ -5,7 +5,6 @@ using System.Net;
 
 namespace SchoolProject.Api.Bases
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class AppControllerBase : ControllerBase
     {
