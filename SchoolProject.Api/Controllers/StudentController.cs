@@ -6,7 +6,6 @@ using SchoolProject.Data.AppMetaData;
 namespace SchoolProject.Api.Controllers
 {
     [ApiController]
-    //[Route("api/[controller]")]
     public class StudentController : AppControllerBase
     {
         [HttpGet(Router.studentRouting.getAll)]

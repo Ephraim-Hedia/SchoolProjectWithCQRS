@@ -44,7 +44,7 @@ namespace SchoolProject.Service.Implementation
         {
             // check if the student name is exist or not 
             var studentNameExist = await _studentRepository.GetTableNoTracking()
-                .AnyAsync(s => s.StudentName == name);
+                .AnyAsync(s => s.StudentNameEn == name);
             if (!studentNameExist)
                 return false;
 
@@ -61,7 +61,7 @@ namespace SchoolProject.Service.Implementation
         {
             // check if the student name is exist or not 
             var studentNameExist = await _studentRepository.GetTableNoTracking()
-                .AnyAsync(s => s.StudentName == name && s.StudentId != id);
+                .AnyAsync(s => s.StudentNameEn == name && s.StudentId != id);
             if (!studentNameExist)
                 return false;
 
@@ -102,16 +102,16 @@ namespace SchoolProject.Service.Implementation
         public IQueryable<Student> FilterStudentsPaginatedQuerable(StudentOrderingEnum? orderBy, string? search)
         {
             var querable = _studentRepository.GetTableAsTracking().Include(s => s.Department).AsQueryable();
-            querable = querable.Where(s => string.IsNullOrEmpty(search) || s.StudentName.Contains(search) || s.StudentAddress.Contains(search));
+            querable = querable.Where(s => string.IsNullOrEmpty(search) || s.StudentNameAr.Contains(search) || s.StudentNameEn.Contains(search) || s.StudentAddress.Contains(search));
             if (orderBy != null)
             {
                 switch (orderBy)
                 {
                     case StudentOrderingEnum.StudentNameAsc:
-                        querable = querable.OrderBy(s => s.StudentName);
+                        querable = querable.OrderBy(s => s.StudentNameEn);
                         break;
                     case StudentOrderingEnum.StudentNameDesc:
-                        querable = querable.OrderByDescending(s => s.StudentName);
+                        querable = querable.OrderByDescending(s => s.StudentNameEn);
                         break;
                     case StudentOrderingEnum.StudentAddressAsc:
                         querable = querable.OrderBy(s => s.StudentAddress);
@@ -120,10 +120,10 @@ namespace SchoolProject.Service.Implementation
                         querable = querable.OrderByDescending(s => s.StudentAddress);
                         break;
                     case StudentOrderingEnum.DepartmentNameAsc:
-                        querable = querable.OrderBy(s => s.Department.DepartmentName);
+                        querable = querable.OrderBy(s => s.Department.DepartmentNameEn);
                         break;
                     case StudentOrderingEnum.DepartmentNameDesc:
-                        querable = querable.OrderByDescending(s => s.Department.DepartmentName);
+                        querable = querable.OrderByDescending(s => s.Department.DepartmentNameEn);
                         break;
                     case StudentOrderingEnum.StudentNumberAsc:
                         querable = querable.OrderBy(s => s.StudentId);

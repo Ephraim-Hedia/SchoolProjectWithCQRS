@@ -9,8 +9,9 @@ namespace SchoolProject.Infrastructure.Configuration
         public void Configure(EntityTypeBuilder<Student> builder)
         {
             builder.HasKey(s => s.StudentId);
-            builder.Property(s => s.StudentName)
-              .IsRequired()
+            builder.Property(s => s.StudentNameAr)
+              .HasMaxLength(200);
+            builder.Property(s => s.StudentNameEn)
               .HasMaxLength(200);
 
             builder.Property(s => s.StudentAddress)

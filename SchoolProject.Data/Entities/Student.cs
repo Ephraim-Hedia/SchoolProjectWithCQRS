@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SchoolProject.Data.Commons;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SchoolProject.Data.Entities
 {
-    public class Student
+    public class Student : GeneralLocalizableEntity
     {
         public Student()
         {
@@ -14,7 +15,9 @@ namespace SchoolProject.Data.Entities
 
         public int StudentId { get; set; }
         [StringLength(200)]
-        public string? StudentName { get; set; }
+        public string? StudentNameAr { get; set; }
+        [StringLength(200)]
+        public string? StudentNameEn { get; set; }
         [StringLength(200)]
         public string? StudentAddress { get; set; }
         [StringLength(11)]

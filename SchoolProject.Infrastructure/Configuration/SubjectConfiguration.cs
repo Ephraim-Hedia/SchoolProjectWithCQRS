@@ -9,11 +9,13 @@ namespace SchoolProject.Infrastructure.Configuration
         public void Configure(EntityTypeBuilder<Subject> builder)
         {
             builder.HasKey(s => s.SubjectId);
-            builder.Property(s => s.SubjectName)
+            builder.Property(s => s.SubjectNameAr)
+                .HasMaxLength(200);
+            builder.Property(s => s.SubjectNameEn)
                 .HasMaxLength(200);
 
-            builder.Property(s => s.Period)
-                .HasColumnType("datetime");
+            //builder.Property(s => s.Period)
+            //    .HasColumnType("datetime");
 
 
             builder.HasMany(s => s.StudentSubjects)

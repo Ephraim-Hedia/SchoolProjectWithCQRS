@@ -21,4 +21,11 @@
     <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="10.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Departments\Commands\Handlers\" />
+    <Folder Include="Features\Departments\Commands\Models\" />
+    <Folder Include="Features\Departments\Commands\Validators\" />
+    <Folder Include="Mapping\DepartmentMapping\CommandMapping\" />
+  </ItemGroup>
+
 </Project>

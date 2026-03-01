@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace SchoolProject.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class ConfigurationDataNotation : Migration
+    public partial class AddLocalizationOnEntities : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,8 +16,9 @@ namespace SchoolProject.Infrastructure.Migrations
                 {
                     SubjectId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SubjectName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    Period = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    SubjectNameAr = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    SubjectNameEn = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Period = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -31,7 +31,8 @@ namespace SchoolProject.Infrastructure.Migrations
                 {
                     DepeartmentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DepartmentName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    DepartmentNameAr = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    DepartmentNameEn = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     InstructorDepartmentManagerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -48,7 +49,7 @@ namespace SchoolProject.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DepartmentSubjects", x => new { x.DepartmentId, x.SubjectId });
+                    table.PrimaryKey("PK_DepartmentSubjects", x => new { x.SubjectId, x.DepartmentId });
                     table.ForeignKey(
                         name: "FK_DepartmentSubjects_Departments_DepartmentId",
                         column: x => x.DepartmentId,
@@ -69,10 +70,10 @@ namespace SchoolProject.Infrastructure.Migrations
                 {
                     InstructorId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    InstructorNameAr = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    InstructorNameEn = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Position = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InstructorNameAr = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    InstructorNameEn = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Position = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     SupervisorId = table.Column<int>(type: "int", nullable: true),
                     Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -101,9 +102,10 @@ namespace SchoolProject.Infrastructure.Migrations
                 {
                     StudentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StudentName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    StudentAddress = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: true),
+                    StudentNameAr = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    StudentNameEn = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    StudentAddress = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
                     DepartmentId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -113,7 +115,8 @@ namespace SchoolProject.Infrastructure.Migrations
                         name: "FK_Students_Departments_DepartmentId",
                         column: x => x.DepartmentId,
                         principalTable: "Departments",
-                        principalColumn: "DepeartmentId");
+                        principalColumn: "DepeartmentId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -131,7 +134,7 @@ namespace SchoolProject.Infrastructure.Migrations
                         column: x => x.InstructorId,
                         principalTable: "Instructors",
                         principalColumn: "InstructorId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_InstructorSubjects_Subjects_SubjectId",
                         column: x => x.SubjectId,
@@ -146,7 +149,6 @@ namespace SchoolProject.Infrastructure.Migrations
                 {
                     StudentId = table.Column<int>(type: "int", nullable: false),
                     SubjectId = table.Column<int>(type: "int", nullable: false),
-                    StudentSubjectId = table.Column<int>(type: "int", nullable: false),
                     Grade = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
                 },
                 constraints: table =>
@@ -157,7 +159,7 @@ namespace SchoolProject.Infrastructure.Migrations
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "StudentId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_StudentSubjects_Subjects_SubjectId",
                         column: x => x.SubjectId,
@@ -174,9 +176,9 @@ namespace SchoolProject.Infrastructure.Migrations
                 filter: "[InstructorDepartmentManagerId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DepartmentSubjects_SubjectId",
+                name: "IX_DepartmentSubjects_DepartmentId",
                 table: "DepartmentSubjects",
-                column: "SubjectId");
+                column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Instructors_DepartmentId",

@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SchoolProject.Data.Commons;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SchoolProject.Data.Entities
 {
-    public class Department
+    public class Department : GeneralLocalizableEntity
     {
         public Department()
         {
@@ -15,9 +16,8 @@ namespace SchoolProject.Data.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DepeartmentId { get; set; }
         [StringLength(200)]
-        public string DepartmentName { get; set; }
-
-
+        public string DepartmentNameAr { get; set; }
+        public string DepartmentNameEn { get; set; }
 
         public int? InstructorDepartmentManagerId { get; set; }
         [ForeignKey(nameof(InstructorDepartmentManagerId))]

@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SchoolProject.Infrastructure.InfrastructureBases;
+using SchoolProject.Infrastructure.Interfaces;
+using SchoolProject.Infrastructure.Repositories;
 
 namespace SchoolProject.Infrastructure
 {
@@ -8,7 +10,10 @@ namespace SchoolProject.Infrastructure
         public static IServiceCollection AddInfrastructureDependencies(this IServiceCollection services)
         {
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            services.AddScoped<Interfaces.IStudentRepository, Repositories.StudentRepository>();
+            services.AddScoped<IStudentRepository, StudentRepository>();
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            services.AddScoped<IInstructorRepository, InstructorRepository>();
+            services.AddScoped<ISubjectRepository, SubjectRepository>();
             return services;
         }
     }

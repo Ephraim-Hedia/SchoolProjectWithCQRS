@@ -10,8 +10,9 @@ namespace SchoolProject.Infrastructure.Configuration
         {
             builder.HasKey(d => d.DepeartmentId);
 
-            builder.Property(d => d.DepartmentName)
-                .IsRequired()
+            builder.Property(d => d.DepartmentNameAr)
+                .HasMaxLength(200);
+            builder.Property(d => d.DepartmentNameEn)
                 .HasMaxLength(200);
 
             builder.HasOne(d => d.InstructorDepartmentManager)

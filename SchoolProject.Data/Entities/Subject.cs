@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SchoolProject.Data.Commons;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SchoolProject.Data.Entities
 {
-    public class Subject
+    public class Subject : GeneralLocalizableEntity
     {
         public Subject()
         {
@@ -14,8 +15,9 @@ namespace SchoolProject.Data.Entities
         [Key]
         public int SubjectId { get; set; }
         [StringLength(200)]
-        public string? SubjectName { get; set; }
-        public DateTime? Period { get; set; }
+        public string? SubjectNameAr { get; set; }
+        public string? SubjectNameEn { get; set; }
+        public int? Period { get; set; }
 
 
 

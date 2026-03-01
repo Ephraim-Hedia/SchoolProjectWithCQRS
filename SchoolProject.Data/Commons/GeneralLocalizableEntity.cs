@@ -2,9 +2,9 @@
 
 namespace SchoolProject.Data.Commons
 {
-    public static class GeneralLocalizableEntity
+    public class GeneralLocalizableEntity
     {
-        public static string GetLocalizedName(string EntityAr, string EntityEn)
+        public string GetLocalizedName(string EntityAr, string EntityEn)
         {
             CultureInfo culture = Thread.CurrentThread.CurrentCulture;
             string cultureName = culture.TwoLetterISOLanguageName.ToLower();
