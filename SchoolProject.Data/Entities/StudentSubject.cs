@@ -1,12 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SchoolProject.Data.Entities
 {
     public class StudentSubject
     {
-        [Key]
-        public int StudentSubjectId { get; set; }
+
         public int StudentId { get; set; }
         public int SubjectId { get; set; }
 
