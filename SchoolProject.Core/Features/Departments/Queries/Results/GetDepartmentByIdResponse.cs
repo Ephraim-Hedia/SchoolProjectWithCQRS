@@ -1,4 +1,6 @@
-﻿namespace SchoolProject.Core.Features.Departments.Queries.Results
+﻿using SchoolProject.Core.Wrappers;
+
+namespace SchoolProject.Core.Features.Departments.Queries.Results
 {
     public class GetDepartmentByIdResponse
     {
@@ -6,7 +8,7 @@
         public string DepartmentName { get; set; }
         public string? ManagerName { get; set; }
 
-        public List<StudentResponse>? StudentList { get; set; }
+        public PaginatedResult<StudentResponse>? StudentList { get; set; }
         public List<InstructorResponse>? InstructorList { get; set; }
         public List<SubjectResponse>? SubjectList { get; set; }
 
@@ -16,6 +18,11 @@
     {
         public int StudentId { get; set; }
         public string StudentName { get; set; }
+        public StudentResponse(int id, string name)
+        {
+            StudentId = id;
+            StudentName = name;
+        }
     }
     public class InstructorResponse
     {

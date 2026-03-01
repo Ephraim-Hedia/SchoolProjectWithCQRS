@@ -138,6 +138,12 @@ namespace SchoolProject.Service.Implementation
             return querable;
         }
 
+        public IQueryable<Student> GetStudentsByDepartmentIdQuerable(int departmentId)
+        {
+            return _studentRepository.GetTableAsTracking().Include(s => s.Department)
+                 .Where(s => s.DepartmentId == departmentId).AsQueryable();
+        }
+
 
 
         #endregion

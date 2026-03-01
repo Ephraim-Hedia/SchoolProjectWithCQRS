@@ -5,7 +5,10 @@ using SchoolProject.Core.Bases;
 using SchoolProject.Core.Features.Departments.Queries.Models;
 using SchoolProject.Core.Features.Departments.Queries.Results;
 using SchoolProject.Core.Resources;
+using SchoolProject.Core.Wrappers;
+using SchoolProject.Data.Entities;
 using SchoolProject.Service.Interfaces;
+using System.Linq.Expressions;
 
 namespace SchoolProject.Core.Features.Departments.Queries.Handlers
 {
@@ -15,15 +18,18 @@ namespace SchoolProject.Core.Features.Departments.Queries.Handlers
         private readonly IDepartmentService _departmentService;
         private readonly IStringLocalizer<SharedResources> _stringLocalizer;
         private readonly IMapper _mapper;
+        private readonly IStudentService _studentService;
         #endregion
         #region Constructors
         public GetDepartmentByIdHandler(IDepartmentService departmentService,
             IMapper mapper,
+            IStudentService studentService,
             IStringLocalizer<SharedResources> stringLocalizer) : base(stringLocalizer)
         {
             _stringLocalizer = stringLocalizer;
             _departmentService = departmentService;
             _mapper = mapper;
+            _studentService = studentService;
         }
 
         #endregion
@@ -40,6 +46,13 @@ namespace SchoolProject.Core.Features.Departments.Queries.Handlers
             // map the department to GetDepartmentByIdResponse and return it in success response
             var response = _mapper.Map<GetDepartmentByIdResponse>(department);
 
+            // Pagination 
+            Expression<Func<Student, StudentResponse>> expression = s
+                => new StudentResponse(s.StudentId, s.GetLocalizedName(s.StudentNameAr, s.StudentNameEn));
+
+            var studentsQuarable = _studentService.GetStudentsByDepartmentIdQuerable(department.DepeartmentId);
+            var paginatedList = await studentsQuarable.Select(expression).ToPaginatedListAsync(request.StudentsPageNumber, request.StudentsPageSize);
+            response.StudentList = paginatedList;
             // if any error occurs return unprocessable entity response with the error message
             return response == null ? UnprocessableEntity<GetDepartmentByIdResponse>(_stringLocalizer[SharedResourcesKeys.UnprocessableEntity]) : Success(response);
         }

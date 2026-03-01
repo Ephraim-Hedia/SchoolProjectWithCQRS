@@ -16,6 +16,7 @@ namespace SchoolProject.Service.Interfaces
         public Task<bool> IsNameExistExcludeSelfAsync(string name, int id);
         public Task<string> DeleteStudentAsync(int id);
         public IQueryable<Student> GetStudentsQuerable();
+        public IQueryable<Student> GetStudentsByDepartmentIdQuerable(int departmentId);
         public IQueryable<Student> FilterStudentsPaginatedQuerable(StudentOrderingEnum? orderBy, string? search);
 
     }
