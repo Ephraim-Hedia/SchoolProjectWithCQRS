@@ -35,6 +35,7 @@
             public const string create = prefix;
             public const string update = prefix;
             public const string delete = prefix + "{id}";
+            public const string changePassword = prefix + "changePassword";
         }
     }
 }

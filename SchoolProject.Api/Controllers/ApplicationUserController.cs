@@ -28,5 +28,16 @@ namespace SchoolProject.Api.Controllers
         [Route(Router.ApplicationUserRouting.update)]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommand command)
             => NewResult(await Mediator.Send(command));
+
+
+        [HttpDelete]
+        [Route(Router.ApplicationUserRouting.delete)]
+        public async Task<IActionResult> DeleteUser(int id)
+            => NewResult(await Mediator.Send(new DeleteUserCommand(id)));
+
+        [HttpPut]
+        [Route(Router.ApplicationUserRouting.changePassword)]
+        public async Task<IActionResult> ChangeUserPassword([FromBody] ChangeUserPasswordCommand command)
+            => NewResult(await Mediator.Send(command));
     }
 }

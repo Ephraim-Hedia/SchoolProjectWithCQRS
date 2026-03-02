@@ -12,6 +12,8 @@ namespace SchoolProject.Core.Features.ApplicationUser.Commands.Handlers
     public class UserCommandHandler : ResponseHandler
         , IRequestHandler<AddUserCommand, Response<string>>
         , IRequestHandler<UpdateUserCommand, Response<string>>
+        , IRequestHandler<DeleteUserCommand, Response<string>>
+        , IRequestHandler<ChangeUserPasswordCommand, Response<string>>
     {
         #region Fields
         private readonly IStringLocalizer<SharedResources> _localizer;
@@ -73,6 +75,34 @@ namespace SchoolProject.Core.Features.ApplicationUser.Commands.Handlers
                 return BadRequest<string>(_localizer[SharedResourcesKeys.UpdateFailed]);
 
             return Updated<string>();
+        }
+
+        public async Task<Response<string>> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
+        {
+            // check if the user is exist or not
+            var user = await _userManager.FindByIdAsync(request.Id.ToString());
+            if (user == null) return NotFound<string>();
+
+
+            var response = await _userManager.DeleteAsync(user);
+            if (!response.Succeeded)
+                return BadRequest<string>(_localizer[SharedResourcesKeys.DeletedFailed]);
+
+
+            return Deleted<string>();
+
+        }
+
+        public async Task<Response<string>> Handle(ChangeUserPasswordCommand request, CancellationToken cancellationToken)
+        {
+            var user = await _userManager.FindByIdAsync(request.UserId.ToString());
+            if (user == null) return NotFound<string>();
+
+            var response = await _userManager.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword);
+            if (!response.Succeeded)
+                return BadRequest<string>(response.Errors.FirstOrDefault().Description);
+            return Updated<string>();
+
         }
         #endregion
     }
