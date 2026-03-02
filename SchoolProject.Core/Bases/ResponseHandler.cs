@@ -101,5 +101,6 @@ namespace SchoolProject.Core.Bases
 
 
 
+
     }
 }

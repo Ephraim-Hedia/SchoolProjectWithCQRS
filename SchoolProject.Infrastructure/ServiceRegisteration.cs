@@ -33,15 +33,6 @@ namespace SchoolProject.Infrastructure
 
             }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
-
-
-
-
-
-
-
-
-
             return services;
         }
     }

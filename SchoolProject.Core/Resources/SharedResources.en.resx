@@ -162,4 +162,16 @@
   <data name="DepartmentId" xml:space="preserve">
     <value>Department Id</value>
   </data>
+  <data name="PasswordNotEqualConfirmPass" xml:space="preserve">
+    <value>The Password is not matched</value>
+  </data>
+  <data name="EmailIsExist" xml:space="preserve">
+    <value>Email is Already Exist</value>
+  </data>
+  <data name="UserNameIsExist" xml:space="preserve">
+    <value>User Name is Already Exist</value>
+  </data>
+  <data name="FaildToAddUser" xml:space="preserve">
+    <value>Failed To Add New User </value>
+  </data>
 </root>
