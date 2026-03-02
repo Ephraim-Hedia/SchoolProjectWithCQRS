@@ -38,7 +38,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 #region Dependency Injection
 builder.Services.AddInfrastructureDependencies()
     .AddServiceDependencies()
-    .AddCoreDependencies();
+    .AddCoreDependencies()
+    .AddServiceRegisteration();
 #endregion
 
 #region Localization
