@@ -24,5 +24,9 @@ namespace SchoolProject.Api.Controllers
         public async Task<IActionResult> GetUserById(int id)
              => Ok(await Mediator.Send(new GetUserByIdQuery(id)));
 
+        [HttpPut]
+        [Route(Router.ApplicationUserRouting.update)]
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommand command)
+            => NewResult(await Mediator.Send(command));
     }
 }

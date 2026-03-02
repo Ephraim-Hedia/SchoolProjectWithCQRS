@@ -174,4 +174,7 @@
   <data name="FaildToAddUser" xml:space="preserve">
     <value>حدث خطأ اثناء إضافة العميل</value>
   </data>
+  <data name="UpdateFailed" xml:space="preserve">
+    <value>فشل ف تعديل العضو</value>
+  </data>
 </root>

@@ -11,6 +11,7 @@ namespace SchoolProject.Core.Features.ApplicationUser.Commands.Handlers
 {
     public class UserCommandHandler : ResponseHandler
         , IRequestHandler<AddUserCommand, Response<string>>
+        , IRequestHandler<UpdateUserCommand, Response<string>>
     {
         #region Fields
         private readonly IStringLocalizer<SharedResources> _localizer;
@@ -56,6 +57,22 @@ namespace SchoolProject.Core.Features.ApplicationUser.Commands.Handlers
                 return BadRequest<string>(createResult.Errors.FirstOrDefault().Description);
 
             return Created("");
+        }
+
+        public async Task<Response<string>> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+        {
+            // check if the user is exist or not 
+            var user = await _userManager.FindByIdAsync(request.Id.ToString());
+            if (user == null) return NotFound<string>();
+
+            // mapping 
+            var newUser = _mapper.Map(request, user);
+
+            var response = await _userManager.UpdateAsync(newUser);
+            if (!response.Succeeded)
+                return BadRequest<string>(_localizer[SharedResourcesKeys.UpdateFailed]);
+
+            return Updated<string>();
         }
         #endregion
     }
