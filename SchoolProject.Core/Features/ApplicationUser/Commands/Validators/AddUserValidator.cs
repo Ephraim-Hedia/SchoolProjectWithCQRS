@@ -1,12 +1,11 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.Localization;
-using SchoolProject.Core.Bases;
 using SchoolProject.Core.Features.ApplicationUser.Commands.Models;
 using SchoolProject.Core.Resources;
 
 namespace SchoolProject.Core.Features.ApplicationUser.Commands.Validators
 {
-    public class AddUserValidator : AbstractValidator<Response<AddUserCommand>>
+    public class AddUserValidator : AbstractValidator<AddUserCommand>
     {
         #region Fields
         private readonly IStringLocalizer<SharedResources> _localizer;
