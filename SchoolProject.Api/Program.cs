@@ -39,7 +39,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddInfrastructureDependencies()
     .AddServiceDependencies()
     .AddCoreDependencies()
-    .AddServiceRegisteration();
+    .AddServiceRegisteration(builder.Configuration);
 #endregion
 
 #region Localization
@@ -75,6 +75,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 #region Localization Middleware
 var options = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
 app.UseRequestLocalization(options.Value);
@@ -85,6 +86,7 @@ app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

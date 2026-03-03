@@ -37,5 +37,11 @@
             public const string delete = prefix + "{id}";
             public const string changePassword = prefix + "changePassword";
         }
+        public static class AuthenticationRouting
+        {
+            public const string prefix = baseRoute + "auth/";
+            public const string signIn = prefix + "signIn";
+            public const string signOut = prefix + "signOut";
+        }
     }
 }
