@@ -41,6 +41,8 @@
         {
             public const string prefix = baseRoute + "auth/";
             public const string signIn = prefix + "signIn";
+            public const string refreshToken = prefix + "refreshToken";
+            public const string validateToken = prefix + "validateToken";
             public const string signOut = prefix + "signOut";
         }
     }
