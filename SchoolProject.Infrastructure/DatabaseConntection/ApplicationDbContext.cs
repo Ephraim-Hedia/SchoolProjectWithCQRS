@@ -18,6 +18,7 @@ namespace SchoolProject.Infrastructure.DatabaseConntection
         public DbSet<DepartmentSubject> DepartmentSubjects { get; set; }
         public DbSet<Instructor> Instructors { get; set; }
         public DbSet<InstructorSubject> InstructorSubjects { get; set; }
+        public DbSet<UserRefreshToken> UserRefreshToken { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
