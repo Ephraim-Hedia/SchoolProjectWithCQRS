@@ -8,4 +8,4 @@ namespace SchoolProject.Core.Features.Authentication.Queries.Models
         public string AccessToken { get; set; }
     }
 }
-}
+

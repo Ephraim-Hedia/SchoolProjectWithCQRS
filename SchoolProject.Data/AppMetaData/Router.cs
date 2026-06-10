@@ -45,5 +45,14 @@
             public const string validateToken = prefix + "validateToken";
             public const string signOut = prefix + "signOut";
         }
+        public static class AuthorizationRouting
+        {
+            public const string prefix = baseRoute + "authorization/";
+            public const string addRole = prefix + "addRole";
+            public const string editRole = prefix + "editRole";
+            public const string deleteRole = prefix + "deleteRole/{id}";
+            public const string getRoleList = prefix + "getRoleList";
+            public const string getRoleById = prefix + "getRoleById/{id}";
+        }
     }
 }

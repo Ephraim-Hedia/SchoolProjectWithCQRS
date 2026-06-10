@@ -17,7 +17,7 @@ namespace SchoolProject.Infrastructure
         public static IServiceCollection AddServiceRegisteration(this IServiceCollection services, IConfiguration configuration)
         {
             // Identity Configuration
-            services.AddIdentity<User, IdentityRole<int>>(option =>
+            services.AddIdentity<User, Role>(option =>
             {
                 // Password settings.
                 option.Password.RequireDigit = true;
